@@ -6,6 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 public class Hello {
 	private static final Logger LOGGER = LogManager.getLogger(Hello.class);
+	
+	private static final Logger SECOND_LOGGER = LogManager.getLogger("rollingFilesLogger");
+	
+	
 
 	/**
 	 * @param args
@@ -13,12 +17,14 @@ public class Hello {
 	public static void main(String[] args) {
 		LOGGER.trace("Hello World!");
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 2; i++) {
 			String name = "Testing Logging";
-			LOGGER.debug("Hi, {}", name);
-			LOGGER.info("Welcome to the Log4j test.");
-			LOGGER.warn("Log4j warning message.");
-			LOGGER.error("Log4j error message.");
+			LOGGER.debug("debug {}", name);
+			LOGGER.info("Info");
+			LOGGER.warn("warn");
+			LOGGER.error("error");
+			SECOND_LOGGER.debug("second debug");
+			SECOND_LOGGER.warn("second warn");
 			A a = new A();
 			LOGGER.debug("{}",a);
 		}

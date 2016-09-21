@@ -5,12 +5,9 @@
 		<Console name="CONSOLE" target="SYSTEM_OUT">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-	</Appenders>
-
-	<Appenders>
 		<RollingFile name="rollingFileAppender"
-			fileName="/home/raghunandangupta/Desktop/CSV/ALLCSV/abc.log"
-			filePattern="/home/raghunandangupta/Desktop/CSV/ALLCSV/abc-%d{MM-dd-yyyy}-%i.log">
+			fileName="/apps/abc.log"
+			filePattern="/apps/abc-%d{MM-dd-yyyy}-%i.log">
 			<PatternLayout>
 				<Pattern>%d{ISO8601} %-5p [%t] (%F:%L) - %m%n</Pattern>
 			</PatternLayout>
@@ -20,13 +17,21 @@
 				<SizeBasedTriggeringPolicy size="50 MB" />
 			</Policies>
 		</RollingFile>
-	</Appenders>
-
-
-	<Appenders>
+		<RollingFile name="rollingFilesAppender"
+			fileName="/apps/cde.log"
+			filePattern="/apps/fgh-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout>
+				<Pattern>%d{ISO8601} %-5p [%t] (%F:%L) - %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="50 MB" />
+			</Policies>
+		</RollingFile>
 		<RollingRandomAccessFile name="Rolling"
-			fileName="/home/raghunandangupta/Desktop/CSV/ALLCSV/abcasynch.log"
-			filePattern="/home/raghunandangupta/Desktop/CSV/ALLCSV/abcasynch-%d{yyyy-MM-dd}-%i.log.gz">
+			fileName="/apps/abcasynch.log"
+			filePattern="/apps/abcasynch-%d{yyyy-MM-dd}-%i.log.gz">
 			<PatternLayout>
 				<Pattern>%d{ISO8601} %-5p [%t] (%F:%L) - %m%n</Pattern>
 			</PatternLayout>
@@ -51,14 +56,19 @@
 			<AppenderRef ref="CONSOLE" />
 		</Root>
 
-		<Logger name="com.log4jtest" additivity="false" level="ERROR">
-			<AppenderRef ref="rollingFileAppender" />
-		</Logger>
 
 		<AsyncLogger name="com.log4jtest" level="INFO"
 			includeLocation="true">
 			<AppenderRef ref="Rolling" />
 		</AsyncLogger>
+
+		<Logger name="com.log4jtest" additivity="false" level="WARN">
+			<AppenderRef ref="rollingFilesAppender" />
+		</Logger>
+
+		<Logger name="com.log4jtest" additivity="false" level="INFO">
+			<AppenderRef ref="rollingFileAppender" />
+		</Logger>
 
 	</Loggers>
 </Configuration>
